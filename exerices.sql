@@ -164,6 +164,10 @@ ORDER BY f.date DESC; /*(8)*/
 /*
 
 */
+SELECT p.nom, p.prenom
+FROM personne p
+JOIN acteur a ON p.id_personne = a.id_personne
+JOIN realisateur r ON p.id_personne = r.id_personne;
 
 /****************************************************************************************************************************************/
 
@@ -202,9 +206,14 @@ GROUP BY sexe; /*(4)*/
 /****************************************************************************************************************************************/
 
 [K. Liste des acteurs ayant plus de 50 ans (âge révolu et non révolu)]
-/*
+/* [REMARQUE : CURRENT_DATE | NOW | SYSDATE ] https://stackoverflow.com/questions/24137752/difference-between-now-sysdate-current-date-in-mysql
 
 */
+SELECT personne.nom, personne.prenom, YEAR(CURRENT_DATE) - YEAR(personne.date_de_naissance) AS age
+FROM personne
+JOIN acteur ON personne.id_personne = acteur.id_personne
+WHERE YEAR(CURRENT_DATE) - YEAR(personne.date_de_naissance) >= 50
+ORDER BY age DESC;
 
 /****************************************************************************************************************************************/
 
