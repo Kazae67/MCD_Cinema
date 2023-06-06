@@ -1,3 +1,5 @@
+/****************************************************************************************************************************************/
+
 [A. Informations d’un film (id_film) : titre, année, durée (au format HH:MM) et réalisateur.]
 /* https://sql.sh/fonctions/concat [CONCAT]
    https://sql.sh/fonctions/sec_to_time [SEC_TO_TIME]
@@ -26,6 +28,8 @@ JOIN realisateur AS r ON f.id_realisateur = r.id_realisateur /*(3)*/
 JOIN personne AS p ON r.id_personne = p.id_personne /*(4)*/
 WHERE f.id_film = 2; /*(5)*/
 
+/****************************************************************************************************************************************/
+
 [B. Liste des films dont la durée excède 2h15 classés par durée (du plus long au plus court)]
 /*
  * (1) SELECT titre : sélectionner la colonne "titre".
@@ -39,6 +43,8 @@ SELECT titre /*(1)*/
 FROM film /*(2)*/
 WHERE duree >= 135 /*(3)*/
 ORDER BY duree DESC; /*(4)*/
+
+/****************************************************************************************************************************************/
 
 [C. Liste des films d’un réalisateur (en précisant l’année de sortie)]
 /* https://sql.sh/fonctions/concat [CONCAT]
@@ -60,6 +66,8 @@ JOIN realisateur AS r ON f.id_realisateur = r.id_realisateur /*(3)*/
 JOIN personne AS p ON r.id_personne = p.id_personne /*(4)*/
 WHERE p.nom = 'ROUGE'; /*(5)*/
 
+/****************************************************************************************************************************************/
+
 [D. Nombre de films par genre (classés dans l’ordre décroissant)]
 /* https://sql.sh/fonctions/agregation/count [COUNT]
    [REMARQUE : SELECT genre.type AS genre, COUNT(*) AS nombre_defilms FROM genre] = [SELECT g.type AS genre, COUNT(*) AS nombre_defilm FROM genre as g]
@@ -79,6 +87,8 @@ FROM genre /*(2)*/
 JOIN asso ON genre.id_genre = asso.id_genre /*(3)*/
 GROUP BY genre.type /*(4)*/
 ORDER BY COUNT(*) DESC; /*(5)*/
+
+/****************************************************************************************************************************************/
 
 [E. Nombre de films par réalisateur (classés dans l’ordre décroissant)]
 /* https://sql.sh/fonctions/agregation/count [COUNT]
@@ -101,6 +111,8 @@ JOIN asso a ON g.id_genre = a.id_genre /*(3)*/
 GROUP BY g.type /*(4)*/
 ORDER BY nombre_de_films DESC; /*(5)*/
 
+/****************************************************************************************************************************************/
+
 [F. Casting d’un film en particulier (id_film) : nom, prénom des acteurs + sexe]
 /*
  * (1) Nous sélectionnons les colonnes "nom", "prenom" et "sexe" de la table "personne".
@@ -118,6 +130,8 @@ FROM personne p /*(2)*/
 JOIN acteur a ON p.id_personne = a.id_personne /*(3)*/
 JOIN casting c ON a.id_acteur = c.id_acteur /*(4)*/
 WHERE c.id_film = 1; /*(5)*/
+
+/****************************************************************************************************************************************/
 
 [G. Films tournés par un acteur en particulier (id_acteur) avec leur rôle et l’année de sortie (du film le plus récent au plus ancien)]
 /*
@@ -144,10 +158,14 @@ JOIN personne p ON rt.id_personne = p.id_personne /*(6)*/
 WHERE c.id_acteur = 2 /*(7)*/
 ORDER BY f.date DESC; /*(8)*/
 
+/****************************************************************************************************************************************/
+
 [H. Liste des personnes qui sont à la fois acteurs et réalisateurs]
 /*
 
 */
+
+/****************************************************************************************************************************************/
 
 [I. Liste des films qui ont moins de 5 ans (classés du plus récent au plus ancien)]
 /*
@@ -161,19 +179,30 @@ FROM film /*(2)*/
 WHERE date >= DATE_SUB(CURDATE(), INTERVAL 5 YEAR) /*(3)*/
 ORDER BY date DESC; /*(4)*/
 
-[J. Nombre d’hommes et de femmes parmi les acteurs]
-/*
+/****************************************************************************************************************************************/
 
-*/
-SELECT sexe, COUNT(*) AS nombre_acteur
-FROM personne p
-JOIN acteur a ON p.id_personne = a.id_personne
-GROUP BY sexe;
+[J. Nombre d’hommes et de femmes parmi les acteurs]
+/* https://sql.sh/fonctions/agregation/count [COUNT]
+ * (1) La requête selectionne le sexe, et le nombre d'acteurs (ALIAS "nombre_acteur") pour chaque sexe.
+ * (2) La clause FROM pour spécifier la tables "personne" (ALIAS "p"). 
+ * (3) La clause JOIN est utilisée pour joindre les tables "personne" (ALIAS "p") et "acteur" (ALIAS "a"). 
+       La jointure est effectuée en comparant les colonnes "id_personne" des deux tables.
+ * (4) la clause GROUP BY pour regrouper les résultats en fonction de la colonne "sexe". 
+       Cela signifie que les résultats seront affichés séparément pour chaque valeur unique de la colonne "sexe".
+ */
+SELECT sexe, COUNT(*) AS nombre_acteur /*(1)*/
+FROM personne p /*(2)*/
+JOIN acteur a ON p.id_personne = a.id_personne /*(3)*/
+GROUP BY sexe; /*(4)*/
+
+/****************************************************************************************************************************************/
 
 [K. Liste des acteurs ayant plus de 50 ans (âge révolu et non révolu)]
 /*
 
 */
+
+/****************************************************************************************************************************************/
 
 [L. Acteurs ayant joué dans 3 films ou plus]
 /*
