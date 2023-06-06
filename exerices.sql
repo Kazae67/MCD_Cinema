@@ -168,11 +168,15 @@ ORDER BY f.date DESC; /*(8)*/
 /****************************************************************************************************************************************/
 
 [I. Liste des films qui ont moins de 5 ans (classés du plus récent au plus ancien)]
-/*
- * (1)
- * (2)
- * (3)
- * (4)
+/* https://sql.sh/fonctions/date-heure [DATE_SUB()]
+   https://sql.sh/fonctions/date-heure [CURDATE()]
+   https://www.w3schools.com/sql/func_mysql_date_sub.asp [DATE_SUB(INTERVAL x MINUTE/HOUR/MONTH/YEAR)]
+ * (1) La requête sélectionne le "titre" et "date"
+ * (2) On spécifie la table "film".
+ * (3) La clause WHERE filtre les données en fonction d'une condition. 
+       Ici, on souhaite uniquement les films dont la date est supérieure ou égale à la date actuelle moins 5 ans. 
+       La fonction CURDATE() renvoie la date actuelle, tandis que DATE_SUB() soustrait 5 années à cette date.
+ * (4) On tri les films selon la date dans l'ordre descendant (ordre décroissant). 
  */
 SELECT titre, date /*(1)*/
 FROM film /*(2)*/
