@@ -6,11 +6,11 @@ WHERE duree >= 135
 ORDER BY duree DESC;
 
 /* #c. Liste des films d’un réalisateur (en précisant l’année de sortie) */ 
-SELECT titre, CONCAT(personne.nom, personne.prenom), DATE   
-FROM film 
-INNER JOIN realisateur ON film.id_realisateur = realisateur.id_realisateur 
-INNER JOIN personne ON realisateur.id_personne = personne.id_personne 
-WHERE year(film.date) = 2005
+SELECT f.titre, f.date, p.nom, p.prenom
+FROM film AS f
+JOIN realisateur AS r ON f.id_realisateur = r.id_realisateur
+JOIN personne AS p ON r.id_personne = p.id_personne
+WHERE p.nom = 'ROUGE'
 
 /* d. Nombre de films par genre (classés dans l’ordre décroissant) */
 
