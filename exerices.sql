@@ -51,6 +51,11 @@ ORDER BY f.date DESC;
 /* h. Liste des personnes qui sont à la fois acteurs et réalisateurs */
 
 /* i. Liste des films qui ont moins de 5 ans (classés du plus récent au plus ancien) */
+SELECT titre, date
+FROM film
+WHERE date >= DATE_SUB(CURDATE(), INTERVAL 5 YEAR)
+ORDER BY date DESC;
+
 
 /* j. Nombre d’hommes et de femmes parmi les acteurs */
 
