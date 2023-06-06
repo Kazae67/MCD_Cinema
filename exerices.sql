@@ -93,7 +93,7 @@ ORDER BY COUNT(*) DESC; /*(5)*/
        Cela relie les genres aux films associés dans la table "asso".
  * (4) La clause "GROUP BY" pour regrouper les résultats en fonction de la colonne "g.type" (alias "genre") afin d'obtenir le nombre de films pour chaque genre distinct.
  * (5) La clause "ORDER BY" pour trier les résultats selon la colonne "nombre_de_films".
-       L'option "DESC" indique un tri descendant (ordre décroissant)
+       L'option "DESC" indique un tri descendant (ordre décroissant).
  */
 SELECT g.type AS genre, COUNT(*) AS nombre_de_films /*(1)*/
 FROM genre g /*(2)*/
@@ -121,14 +121,19 @@ WHERE c.id_film = 1; /*(5)*/
 
 [G. Films tournés par un acteur en particulier (id_acteur) avec leur rôle et l’année de sortie (du film le plus récent au plus ancien)]
 /*
- * (1)
- * (2)
- * (3)
- * (4)
- * (5)
- * (6)
- * (7)
- * (8)
+ * (1) La requête sélectionne le nom du réalisateur (ALIAS "nom_realisateur"), le titre du film, le nom du rôle et la date du film.
+ * (2) On spécifie la table "film" et nous lui attribuons l'alias "f".
+ * (3) La clause JOIN est utilisée pour joindre la table "casting" (ALIAS "c") à la table principale "film". 
+       La jointure est réalisée en comparant les colonnes "id_film" des deux tables.
+ * (4) La clause JOIN est utilisée pour joindre la table "role" (ALIAS "r") à la table "casting". 
+       La jointure est effectuée en comparant les colonnes "id_role" des deux tables.
+ * (5) La clause JOIN est utilisée pour joindre la table "realisateur" (ALIAS "rt") à la table principale "film". 
+       La jointure est réalisée en comparant les colonnes "id_realisateur" des deux tables.
+ * (6) La clause JOIN est utilisée pour joindre la table "personne" (ALIAS "p") à la table "realisateur". 
+       La jointure est effectuée en comparant les colonnes "id_personne" des deux tables.
+ * (7) La clause WHERE est utilisée pour filtrer les résultats. 
+       Dans ce cas, seuls les enregistrements ayant "id_acteur" égal à 2 seront inclus dans les résultats.
+ * (8) La clause ORDER BY est utilisée pour trier les résultats dans l'ordre descendant (ordre décroissant) de la colonne "date" du film.
  */
 SELECT  p.nom AS nom_realisateur, f.titre, r.nom AS role, f.date /*(1)*/
 FROM film f /*(2)*/
