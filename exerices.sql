@@ -103,11 +103,15 @@ ORDER BY nombre_de_films DESC; /*(5)*/
 
 [F. Casting d’un film en particulier (id_film) : nom, prénom des acteurs + sexe]
 /*
- * (1)
- * (2)
- * (3)
- * (4)
- * (5)
+ * (1) Nous sélectionnons les colonnes "nom", "prenom" et "sexe" de la table "personne".
+ * (2) On spécifie la table "personne" et nous lui attribuons l'alias "p".
+ * (3) La clause JOIN pour joindre la table "acteur" à la table "personne". 
+       En spécifiant la condition de jointure entre les deux tables, 
+       qui est que l'ID de personne dans la table "personne" correspond à l'ID de personne dans la table "acteur". 
+ * (4) Nous effectuons une autre jointure en utilisant la clause JOIN entre la table "casting" et la table "acteur". 
+       Nous joignons ces deux tables en utilisant la condition que l'ID de l'acteur dans la table "acteur" correspond à l'ID de l'acteur dans la table "casting". 
+ * (5) On ajoute une condition avec la clause WHERE pour filtrer les résultats. 
+       Nous souhaitons uniquement l'ID du film dans la table "casting" est égal à 1.
  */
 SELECT p.nom, p.prenom, p.sexe /*(1)*/
 FROM personne p /*(2)*/
