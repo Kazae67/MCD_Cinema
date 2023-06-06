@@ -212,3 +212,9 @@ GROUP BY sexe; /*(4)*/
 /*
 
 */
+SELECT p.nom, p.prenom
+FROM personne p
+JOIN acteur a ON p.id_personne = a.id_personne
+JOIN casting c ON a.id_acteur = c.id_acteur
+GROUP BY p.id_personne
+HAVING COUNT(DISTINCT c.id_film) >= 3;
