@@ -18,8 +18,18 @@ JOIN personne AS p ON r.id_personne = p.id_personne
 WHERE p.nom = 'ROUGE'
 
 /* d. Nombre de films par genre (classés dans l’ordre décroissant) */
+SELECT g.type AS genre, COUNT(*) AS nombre_de_films
+FROM genre g
+JOIN asso a ON g.id_genre = a.id_genre
+GROUP BY g.type
+ORDER BY nombre_de_films DESC;
 
 /* e. Nombre de films par réalisateur (classés dans l’ordre décroissant) */
+SELECT g.type AS genre, COUNT(*) AS nombre_de_films
+FROM genre AS g
+JOIN asso a ON g.id_genre = a.id_genre
+GROUP BY g.type
+ORDER BY nombre_de_films DESC;
 
 /* f. Casting d’un film en particulier (id_film) : nom, prénom des acteurs + sexe */
 
