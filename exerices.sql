@@ -1,4 +1,9 @@
 /* #a. Informations d’un film (id_film) : titre, année, durée (au format HH:MM) et réalisateur. */
+SELECT f.titre, f.date, CONCAT(TIME_FORMAT(SEC_TO_TIME(f.duree * 60), '%H'), ':', TIME_FORMAT(SEC_TO_TIME(f.duree * 60), '%i')) AS duree_formattee, p.nom, p.prenom
+FROM film AS f
+JOIN realisateur AS r ON f.id_realisateur = r.id_realisateur
+JOIN personne AS p ON r.id_personne = p.id_personne
+WHERE f.id_film = 2
 
 /* #b. Liste des films dont la durée excède 2h15 classés par durée (du plus long au plus court) */
 SELECT titre FROM film 
@@ -6,7 +11,7 @@ WHERE duree >= 135
 ORDER BY duree DESC;
 
 /* #c. Liste des films d’un réalisateur (en précisant l’année de sortie) */ 
-SELECT f.titre, f.date, p.nom, p.prenom
+SELECT f.titre, f.date, CONCAT(p.nom, ' ', p.prenom)
 FROM film AS f
 JOIN realisateur AS r ON f.id_realisateur = r.id_realisateur
 JOIN personne AS p ON r.id_personne = p.id_personne
