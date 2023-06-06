@@ -209,12 +209,23 @@ GROUP BY sexe; /*(4)*/
 /****************************************************************************************************************************************/
 
 [L. Acteurs ayant joué dans 3 films ou plus]
-/*
-
-*/
-SELECT p.nom, p.prenom
-FROM personne p
-JOIN acteur a ON p.id_personne = a.id_personne
-JOIN casting c ON a.id_acteur = c.id_acteur
-GROUP BY p.id_personne
-HAVING COUNT(DISTINCT c.id_film) >= 3;
+/* https://sql.sh/cours/having [HAVING]
+   https://sql.sh/cours/distinct [DISTINCT]
+ * (1) La requête sélectionne le nom, le prenom dans la table "personnage" (ALIAS "p").
+ * (2) On spécifie la table personnage (ALIAS "p").
+ * (3) La clause JOIN est utilisé pour joindre les tables "personne" (ALIAS "p") et "acteur" (ALIAS "a").
+       La jointure est effectuée en comparant les colonnes "id_acteur" des les deux tables.
+ * (4) La clause JOIN est utilisé pour joindre les tables "casting" (ALIAS "c") et "acteur" (ALIAS "c").
+       La jointure est effectuée en comparant les colonnes "id_acteur" dans les deux tables.
+ * (5) La clause GROUP BY regroupe les résultats par la colonne "id_personne" de la table "personne".
+       Cela signifie que les résultats seront regroupés par acteur.
+ * (6) La clause HAVING est utilisée pour filtrer les résultats groupés. 
+       Seuls les groupes ayant au moins trois valeurs distinctes dans la colonne "id_film" de la table "casting" seront inclus dans le résultat. 
+       Donc, seuls les acteurs ayant joué dans au moins trois films distincts seront renvoyés.
+ */
+SELECT p.nom, p.prenom /*(1)*/
+FROM personne p /*(2)*/
+JOIN acteur a ON p.id_personne = a.id_personne /*(3)*/
+JOIN casting c ON a.id_acteur = c.id_acteur /*(4)*/
+GROUP BY p.id_personne /*(5)*/
+HAVING COUNT(DISTINCT c.id_film) >= 3; /*(6)*/
