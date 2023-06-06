@@ -39,6 +39,12 @@ JOIN casting c ON a.id_acteur = c.id_acteur
 WHERE c.id_film = 1;
 
 /* g. Films tournés par un acteur en particulier (id_acteur) avec leur rôle et l’année de sortie (du film le plus récent au plus ancien) */
+SELECT f.titre, r.nom AS role, f.date
+FROM film f
+JOIN casting c ON f.id_film = c.id_film
+JOIN role r ON c.id_role = r.id_role
+WHERE c.id_acteur = 2
+ORDER BY f.date DESC;
 
 /* h. Liste des personnes qui sont à la fois acteurs et réalisateurs */
 
