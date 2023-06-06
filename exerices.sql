@@ -28,38 +28,54 @@ WHERE f.id_film = 2; /*(5)*/
 
 [B. Liste des films dont la durée excède 2h15 classés par durée (du plus long au plus court)]
 /*
-
-*/
-SELECT titre FROM film 
-WHERE duree >= 135
-ORDER BY duree DESC;
+ * (1) SELECT titre : sélectionner la colonne "titre".
+ * (2) FROM film : sélectionner la table "film"
+ * (3) WHERE duree >= 135 : Clause WHERE pour filtrer les enregistrements de la table "film" en fonction d'une condition. 
+       On sélectionne uniquement les films dont la durée est supérieure ou égale à 135 minutes.
+ * (4) ORDER BY duree DESC : Clause ORDER BY est utilisée pour trier les résultats de la requête dans un ordre spécifié. 
+       On tri les films en fonction de leur durée, l'option "DESC" indique un tri descendant (ordre décroissant). 
+ */
+SELECT titre /*(1)*/
+FROM film /*(2)*/
+WHERE duree >= 135 /*(3)*/
+ORDER BY duree DESC; /*(4)*/
 
 [C. Liste des films d’un réalisateur (en précisant l’année de sortie)]
-/*
-
-*/
-SELECT f.titre, f.date, CONCAT(p.nom, ' ', p.prenom)
-FROM film AS f
-JOIN realisateur AS r ON f.id_realisateur = r.id_realisateur
-JOIN personne AS p ON r.id_personne = p.id_personne
-WHERE p.nom = 'ROUGE';
+/* CONCAT : https://sql.sh/fonctions/concat
+ * (1) On sélectionne les colonnes suivantes : f.titre, f.date et CONCAT(p.nom, ' ', p.prenom). 
+       La fonction CONCAT est utilisée pour concaténer le nom et le prénom de la personne en une seule chaîne de caractères.
+ * (2) Nous spécifions la source des données avec la clause FROM, en utilisant la table "film" avec l'alias "f".
+ * (3) La clause JOIN pour joindre la table "realisateur" avec l'alias "r" à la table "film". 
+       La condition de jointure spécifiée est f.id_realisateur = r.id_realisateur, 
+       ce qui signifie que nous associons les films au réalisateur correspondant en comparant les valeurs des colonnes id_realisateur dans les deux tables.
+ * (4) La clause JOIN pour joindre la table "personne" avec l'alias "p" à la table "realisateur". 
+       La condition de jointure spécifiée est r.id_personne = p.id_personne, 
+       ce qui signifie que nous associons les réalisateurs aux personnes correspondantes en comparant les valeurs des colonnes id_personne dans les deux tables.
+ * (5) Après avoir joint les tables, nous utilisons la clause WHERE pour spécifier une condition de filtrage. 
+       La condition spécifiée est p.nom = 'ROUGE', ce qui signifie que nous sélectionnons uniquement les enregistrements où le nom de la personne est égal à 'ROUGE'.
+ */
+SELECT f.titre, f.date, CONCAT(p.nom, ' ', p.prenom) /*(1)*/
+FROM film AS f /*(2)*/
+JOIN realisateur AS r ON f.id_realisateur = r.id_realisateur /*(3)*/
+JOIN personne AS p ON r.id_personne = p.id_personne /*(4)*/
+WHERE p.nom = 'ROUGE'; /*(5)*/
 
 [D. Nombre de films par genre (classés dans l’ordre décroissant)]
 /*
 
 */
-SELECT g.type AS genre, COUNT(*) AS nombre_de_films
-FROM genre g
-JOIN asso a ON g.id_genre = a.id_genre
-GROUP BY g.type
-ORDER BY nombre_de_films DESC;
+SELECT genre.type AS genre, COUNT(*) AS nombre_de_films
+FROM genre
+JOIN asso ON genre.id_genre = asso.id_genre
+GROUP BY genre.type
+ORDER BY COUNT(*) DESC;
 
 [E. Nombre de films par réalisateur (classés dans l’ordre décroissant)]
 /*
 
 */
 SELECT g.type AS genre, COUNT(*) AS nombre_de_films
-FROM genre AS g
+FROM genre g
 JOIN asso a ON g.id_genre = a.id_genre
 GROUP BY g.type
 ORDER BY nombre_de_films DESC;
