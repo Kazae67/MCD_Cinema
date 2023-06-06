@@ -3,7 +3,7 @@ SELECT f.titre, f.date, CONCAT(TIME_FORMAT(SEC_TO_TIME(f.duree * 60), '%H'), ':'
 FROM film AS f
 JOIN realisateur AS r ON f.id_realisateur = r.id_realisateur
 JOIN personne AS p ON r.id_personne = p.id_personne
-WHERE f.id_film = 2
+WHERE f.id_film = 2;
 
 /* #b. Liste des films dont la durée excède 2h15 classés par durée (du plus long au plus court) */
 SELECT titre FROM film 
@@ -15,7 +15,7 @@ SELECT f.titre, f.date, CONCAT(p.nom, ' ', p.prenom)
 FROM film AS f
 JOIN realisateur AS r ON f.id_realisateur = r.id_realisateur
 JOIN personne AS p ON r.id_personne = p.id_personne
-WHERE p.nom = 'ROUGE'
+WHERE p.nom = 'ROUGE';
 
 /* d. Nombre de films par genre (classés dans l’ordre décroissant) */
 SELECT g.type AS genre, COUNT(*) AS nombre_de_films
@@ -32,6 +32,11 @@ GROUP BY g.type
 ORDER BY nombre_de_films DESC;
 
 /* f. Casting d’un film en particulier (id_film) : nom, prénom des acteurs + sexe */
+SELECT p.nom, p.prenom, p.sexe
+FROM personne p
+JOIN acteur a ON p.id_personne = a.id_personne
+JOIN casting c ON a.id_acteur = c.id_acteur
+WHERE c.id_film = 1;
 
 /* g. Films tournés par un acteur en particulier (id_acteur) avec leur rôle et l’année de sortie (du film le plus récent au plus ancien) */
 
