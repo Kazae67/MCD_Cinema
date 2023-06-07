@@ -162,12 +162,17 @@ ORDER BY f.date DESC; /*(8)*/
 
 [H. Liste des personnes qui sont à la fois acteurs et réalisateurs]
 /*
-
+ * (1) La requête sélectionne le nom et le prenom de la table personne (ALIAS "p").
+ * (2) On spécifie la table personne (ALIAS "p").
+ * (3) La clause JOIN est utilisé pour joindre la table acteur (ALIAS "a") à la table personne (ALIAS "p").
+       La jointure est réalisé en comparant les colonnes "id_personne" des deux tables.
+ * (4) La clause JOIN est utilisé pour joindre la table realisateur (ALIAS "r") à la table personne (ALIAS "p").
+       La jointure est réalisé en comparant les colonnes "id_personne" des deux tables.
 */
-SELECT p.nom, p.prenom
-FROM personne p
-JOIN acteur a ON p.id_personne = a.id_personne
-JOIN realisateur r ON p.id_personne = r.id_personne;
+SELECT p.nom, p.prenom /*(1)*/
+FROM personne p /*(2)*/
+JOIN acteur a ON p.id_personne = a.id_personne /*(3)*/
+JOIN realisateur r ON p.id_personne = r.id_personne; /*(4)*/
 
 /****************************************************************************************************************************************/
 
@@ -206,7 +211,7 @@ GROUP BY sexe; /*(4)*/
 /****************************************************************************************************************************************/
 
 [K. Liste des acteurs ayant plus de 50 ans (âge révolu et non révolu)]
-/* [REMARQUE : CURRENT_DATE | NOW | SYSDATE ] https://stackoverflow.com/questions/24137752/difference-between-now-sysdate-current-date-in-mysql
+/* https://stackoverflow.com/questions/24137752/difference-between-now-sysdate-current-date-in-mysql [CURRENT_DATE | NOW | SYSDATE ]
 
 */
 SELECT personne.nom, personne.prenom, YEAR(CURRENT_DATE) - YEAR(personne.date_de_naissance) AS age
