@@ -212,13 +212,18 @@ GROUP BY sexe; /*(4)*/
 
 [K. Liste des acteurs ayant plus de 50 ans (âge révolu et non révolu)]
 /* https://stackoverflow.com/questions/24137752/difference-between-now-sysdate-current-date-in-mysql [CURRENT_DATE | NOW | SYSDATE ]
-
-*/
-SELECT personne.nom, personne.prenom, YEAR(CURRENT_DATE) - YEAR(personne.date_de_naissance) AS age
-FROM personne
-JOIN acteur ON personne.id_personne = acteur.id_personne
-WHERE YEAR(CURRENT_DATE) - YEAR(personne.date_de_naissance) >= 50
-ORDER BY age DESC;
+ * (1) La requête sélectionne les colonnes "nom" et "prenom" de la table "personne", ainsi que le calcul de l'âge à partir de la date de naissance de chaque personne.
+ * (2) La clause FROM personne extrait les données de la table "personne".
+       La clause JOIN est utilisée pour joindre les tables "acteur" et la table "personne".
+ * (3) La jointure est effectuée en comparant les colonnes "id_personne" des deux tables.
+ * (4) La clause WHERE spécifie une condition pour filtrer les résultats, seules les personnes dont l'âge est supérieur ou égal à 50 ans seront incluses dans le résultat.
+ * (5) La clause ORDER BY age DESC indique que nous voulons trier les résultats par ordre descendant d'âge (ordre décroissant). 
+ */
+SELECT personne.nom, personne.prenom, YEAR(CURRENT_DATE) - YEAR(personne.date_de_naissance) AS age /*(1)*/
+FROM personne /*(2)*/
+JOIN acteur ON personne.id_personne = acteur.id_personne /*(3)*/
+WHERE YEAR(CURRENT_DATE) - YEAR(personne.date_de_naissance) >= 50 /*(4)*/
+ORDER BY age DESC; /*(5)*/
 
 /****************************************************************************************************************************************/
 
