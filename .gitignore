@@ -1,5 +1,5 @@
-consigne_pdf.png
-consignes.png
-Screenshot_1.png
-Screenshot_2.png
-MVC.png
+git rm --cached Consignes/consigne_pdf.png
+git rm --cached Consignes/consignes.png
+git rm --cached Consignes/Screenshot_1.png
+git rm --cached Consignes/Screenshot_2.png
+git rm --cached Consignes/MVC.png
